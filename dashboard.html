@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Resume History</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background: #f0f2f5;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 50px auto;
+            background: #fff;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        h2 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 30px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+            text-align: left;
+        }
+
+        th {
+            background-color: #007BFF;
+            color: white;
+        }
+
+        tr:hover {
+            background-color: #f1f1f1;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 40px;
+            font-size: 13px;
+            color: #aaa;
+        }
+
+        .score {
+            font-weight: bold;
+            color: #007BFF;
+        }
+
+        .timestamp {
+            font-size: 13px;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Your Resume Transformations</h2>
+
+        {% if resumes %}
+        <table>
+            <tr>
+                <th>#</th>
+                <th>ATS Score</th>
+                <th>Timestamp</th>
+                <th>Preview</th>
+            </tr>
+            {% for resume in resumes %}
+            <tr>
+                <td>{{ loop.index }}</td>
+                <td class="score">{{ resume.score }}%</td>
+                <td class="timestamp">{{ resume.timestamp.strftime('%Y-%m-%d %H:%M') }}</td>
+                <td>
+                    <details>
+                        <summary>View</summary>
+                        <pre>{{ resume.transformed_text[:500] }}...</pre>
+                    </details>
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+        {% else %}
+        <p>No resume transformations yet. Try uploading one!</p>
+        {% endif %}
+    </div>
+
+    <div class="footer">
+        <a href="/index">Back to Resume Tool</a> · <a href="/logout">Log Out</a>
+    </div>
+</body>
+</html>
